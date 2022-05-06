@@ -1,0 +1,321 @@
+<header id="main-header" class="py-2 bg-success text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fa fa-gear"></i>Employer</h1>
+            </div>   
+        </div> 
+    </div>
+</header>
+
+<section id="action" class="py-4 mb-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 ml-auto">
+                <div class="input-group">
+                    <input type="text" name="" class="form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-dark">Search</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="action" class="py-4 mb-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="#" class="btn btn-warning text-white btn-block" 
+                data-toggle="modal" data-target="#addEmployeeModal">
+                    <i class="fa fa-plus"></i> Add Employee
+                </a>
+                
+            </div>
+            <div class="col-md-3">
+                <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addSkillModal">
+                    <i class="fa fa-plus"></i> Add Skill
+                </a>
+                
+            </div>
+            <div class="col-md-3">
+                <a href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#addCertificateModal">
+                    <i class="fa fa-plus"></i> Add Certificate
+                </a>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</section>
+
+<section id="employees">    
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+           <div class="card">
+               <div class="card-header">
+                   <h4>All Employees</h4>
+               </div>
+               <table class="table table-striped">
+        <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                    <th>Name</th>
+                    <th>Skills</th>   
+                    <th>Years of Experience</th>
+                    <th></th>
+                    <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employees; let rowIndex = index">
+                <td scope="row">{{rowIndex + 1}}</td>
+                <td>{{employee.name}}</td>
+                <td><span *ngFor="let skill of employee.skills">
+                    {{skill.skillName}},</span></td>
+                <td>{{employee.yearsOfExperience}}</td>  
+                <td> <a data-toggle="modal" data-target="#seeDetails" (click)="viewEmployee(employee.email)"
+                     class="btn btn-secondary text-white">Details </a></td>
+                <td> <a (click)="deleteEmployee(employee.id)" class="btn btn-danger text-white">Delete </a></td>
+            </tr>
+        </tbody>
+               </table>
+           </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-center bg-primary text-white mb-3">
+                    <div class="card-body">
+                        <h3>Skills</h3>
+                        <h1 class="display-4">
+                            <i class="fa fa-pencil"></i>{{this.skillCount}}
+                        </h1>
+                    </div>
+                </div>
+    
+      <div class="card text-center bg-success text-white mb-3">
+                    <div class="card-body">
+                        <h3>Certificate</h3>
+                        <h1 class="display-4">
+                            <i class="fa fa-folder-open-o"></i>{{this.certCount}}
+                        </h1>
+                    </div>
+                </div>
+    
+                  <div class="card text-center bg-warning text-white mb-3">
+                    <div class="card-body">
+                        <h3>Employees</h3>
+                        <h1 class="display-4">
+                            <i class="fa fa-users"></i>{{employees.length}}
+                        </h1>
+                    </div>
+                </div>
+    
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal fade" id="addSkillModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h3 class="modal-title">Add Skill</h3>
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="submitSkill()">
+                        <div class="form-group">
+                            <label for="title">Skill Name</label>
+                            <input type="text" name="skillName"
+                            id="skillName" [(ngModel)]="skill.skillName" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title">Employee Email</label>
+                            <input type="text" name="employeeEmail"
+                            id="employeeEmail" [(ngModel)]="employeeEmail" class="form-control"
+                            required>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="body">Skill Description</label>
+                            <textarea name="skillDescription" 
+                            id="skillDescription" [(ngModel)]="skill.skillDescription"
+                             class="form-control" required></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-secondary clearButton"
+                        style="margin: 10px;"
+                        type="reset">Clear</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary closeButton" 
+                    data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+        <!-- Certificate Modal -->
+
+        <div class="modal fade" id="addCertificateModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h3 class="modal-title">Add Certificate</h3>
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form (ngSubmit)="submitCertificate()">
+                            <div class="form-group">
+                                <label for="title">Certificate Name</label>
+                                <input type="text" name="certificateName"
+                                id="certificateName" [(ngModel)]="certificate.certificateName" class="form-control"
+                                required>
+                            </div>
+                                <div class="form-group">
+                                    <label for="title">Employee Email</label>
+                                    <input type="text" name="employeeEmail"
+                                    id="employeeEmail" [(ngModel)]="employeeEmail" class="form-control"
+                                    required>
+                                </div>
+    
+                             <div class="form-group">
+                                <label for="body">Certificate Description</label>
+                                <textarea name="certificateDescription" 
+                                id="certificateDescription" [(ngModel)]="certificate.certificateDescription"
+                                 class="form-control" required></textarea>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="body">Issuing Authority</label>
+                                <input name="authority" type="text"
+                                id="authority" [(ngModel)]="certificate.authority"
+                                 class="form-control" required>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="body">Certificate Licence Number</label>
+                                <input name="certificateNumber"  type="text"
+                                id="certificateNumber" [(ngModel)]="certificate.certificateNumber"
+                                 class="form-control" required>
+                            </div>
+    
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-secondary clearButtonCert"
+                            style="margin: 10px;"
+                            type="reset">Clear</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary closeButtonCert" 
+                        data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <!--Add Employee-->
+        <div class="modal fade" id="addEmployeeModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h3 class="modal-title">Add Employee</h3>
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form (ngSubmit)="submitEmployee()">
+                            <div class="form-group">
+                                <label for="title">Employee Name</label>
+                                <input type="text" name="name"
+                                id="name" [(ngModel)]="subEmployee.name" class="form-control"
+                                required>
+                            </div>
+                                <div class="form-group">
+                                    <label for="email">Employee Email</label>
+                                    <input type="text" name="email"
+                                    id="email" [(ngModel)]="subEmployee.email" class="form-control"
+                                    required>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="password">password</label>
+                                    <input name="password" type="password"
+                                    id="password" [(ngModel)]="subEmployee.password"
+                                     class="form-control" required>
+                             </div>
+    
+                             <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea name="bio" 
+                                id="bio" [(ngModel)]="subEmployee.bio"
+                                 class="form-control" required></textarea>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="body">Experience in years</label>
+                                <input name="yearsOfExperience"  type="Number"
+                                id="yearsOfExperience" [(ngModel)]="subEmployee.yearsOfExperience"
+                                 class="form-control" required>
+                            </div>
+    
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-secondary clearButtonEmp"
+                            style="margin: 10px;"
+                            type="reset">Clear</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary closeButtonEmp" 
+                        data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <!--Show employee Modal-->
+
+        <div class="modal fade" id="seeDetails">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h3 class="modal-title">Details of {{scEmployee.name}}</h3>
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label><strong>Email: </strong></label> {{scEmployee.email}}
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Total experience: </strong></label> {{scEmployee.yearsOfExperience}} year.
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Skills: </strong></label><span *ngFor="let skill of scEmployee.skills">
+                                    {{skill.skillName}}, </span>
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Certificates: </strong></label><span *ngFor="let cert of scEmployee.certificates">
+                                    {{cert.certificateName}}, </span>
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Bio: </strong></label>
+                                <p style="display: contents;">{{scEmployee.bio}}</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary closeButton" 
+                        data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>  
+        </div>

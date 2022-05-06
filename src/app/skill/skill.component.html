@@ -1,0 +1,43 @@
+<br>
+<br>
+<br>
+<section id="posts">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Your Skills</h4>
+                        
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let skill of skills; let rowIndex = index">
+                                <td scope="row">{{rowIndex+1}}</td>
+                                <td>{{skill.skillName}}</td>
+                                <td>{{skill.skillDescription}}</td>
+                                <td><a (click)="deleteSkill(skill.id)" class="btn btn-danger">
+                                <i class="fa fa-angle-double-right"></i> Delete
+                                </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+                                
+        </div>
+        
+    </div>
+    
+</section>

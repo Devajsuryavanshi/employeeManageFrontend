@@ -1,0 +1,113 @@
+<header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fa fa-user"></i> Edit Profile</h1>
+            </div>   
+        </div> 
+    </div>
+</header>
+
+<section id="action" class="py-4 mb-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mr-auto">
+                <a routerLink="" class="btn btn-dark btn-block">
+                    <i class="fa fa-arrow-left"></i> Back To Dashboard
+                </a>
+                
+            </div>
+
+            <div class="col-md-3">
+                <a (click)="deleteEmp()" class="btn btn-danger btn-block text-white">
+                    <i class="fa fa-remove"></i> Delete Account
+                </a>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</section>
+
+<section id="profile" *ngIf="this.appComponent.isEmployee else elseBlock">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Edit Profile</h4>
+                    </div>
+                   <div class="card-body">
+                    <form (ngSubmit)="updateEmployee()">
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" name="name" [(ngModel)]="employee.name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" [(ngModel)]="employee.email">
+                        </div>
+                        
+                        <div class="form-group">
+                        <label for="body">Bio</label>
+                        <textarea class="form-control" name="bio" [(ngModel)]="employee.bio"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="body">Total Experience</label>
+                            <input type="number" class="form-control" name="yearsOfExperience" [(ngModel)]="employee.yearsOfExperience">
+                            </div>  
+                        <button class="btn btn-primary" type="submit">Save</button>                       
+                    </form>
+                       
+                   </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #elseBlock>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Edit Profile</h4>
+                    </div>
+                   <div class="card-body">
+                    <form (ngSubmit)="updateEmployer()">
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" name="name" [(ngModel)]="employer.name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" [(ngModel)]="employer.email">
+                        </div>
+                        
+                        <div class="form-group">
+                        <label for="body">Designation</label>
+                        <input class="form-control" name="designation" [(ngModel)]="employer.designation">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="body">Company</label>
+                            <input type="text" class="form-control" name="company" [(ngModel)]="employer.company">
+                            </div>  
+                        <button class="btn btn-primary" type="submit">Save</button>                       
+                    </form>
+                       
+                   </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

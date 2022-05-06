@@ -1,0 +1,59 @@
+<div class="sidenav">
+    <div class="login-main-text">
+       <h2>Application<br> Login Page</h2>
+       <p>Login or register from here to access.</p>
+    </div>
+ </div>
+ <div class="main">
+    <div class="col-md-6 col-sm-12">
+       <div class="login-form">
+          <form (ngSubmit)="onSubmit(SignInForm)" #SignInForm="ngForm">
+             <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" 
+                id="UserName" name="UserName" placeholder="Email id" required ngModel>
+             </div>
+             <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" 
+                id="Password" name="Password" placeholder="Password" required ngModel>
+             </div>
+
+             <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" name="category" required ngModel="employee">
+                    <option value="employee" selected>Employee</option>
+                    <option value="employer">Employer</option>
+                </select>
+            </div> 
+
+             <button type="submit" class="btn btn-black" style="margin-bottom: 10px;">Login</button>
+             <div class="alert alert-danger" role="alert" *ngIf="!isFormValid">Form field empty</div>
+             <div class="alert alert-danger" role="alert" *ngIf="!isCredentialValid">
+                Invalid Credentials</div>
+          </form>
+          <button class="btn btn-secondary"
+          data-toggle="modal" data-target="#RegistrationType">Register</button>
+       </div>
+    </div>
+ </div>
+
+ <div class="modal fade" id="RegistrationType">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-secondary text-white">
+                <h3 class="modal-title">Select Your role for Registration</h3>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body text-center">
+                <button class="btn btn-primary" (click)="employerRegister()"
+                style="margin-right:10px;">Employer</button>
+                <button class="btn btn-success" (click)="employeeRegister()">Employee</button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary closeButton" 
+                data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>  
+</div>
